@@ -1,0 +1,62 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+import time
+
+def setup_driver():
+    """
+    WebDriverを初期化する関数。
+    ChromeDriverを自動インストールし、初期化されたWebDriverを返す。
+
+    Returns:
+        WebDriver: 初期化済みのWebDriverオブジェクト。
+    """
+    print("[DEBUG] Setting up WebDriver...")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    driver.maximize_window()
+    print("[DEBUG] WebDriver setup complete.")
+    return driver
+
+def main():
+    """
+    WebDriverを使用して画像アイコンをクリックするサンプルコード。
+    """
+    print("[DEBUG] Starting main function...")
+    driver = setup_driver()
+    
+    try:
+        # 1. ターゲットページを開く
+        target_url = "https://example.com"  # 実際のURLに置き換えてください
+        print(f"[DEBUG] Opening URL: {target_url}")
+        driver.get(target_url)
+
+        # 2. ページ読み込みを待機
+        print("[DEBUG] Waiting for the page to load...")
+        time.sleep(2)  # 必要に応じて明示的待機に変更可能
+
+        # 3. 画像アイコンを検索してクリック
+        print("[DEBUG] Searching for the image icon...")
+        
+        # 画像の `alt` 属性を基に要素を検索する例
+        image_element = driver.find_element(By.XPATH, "//img[@alt='target-image-alt']")
+        
+        print("[DEBUG] Image icon found. Clicking the icon...")
+        image_element.click()
+
+        print("[DEBUG] Image icon clicked successfully.")
+        
+    except Exception as e:
+        print(f"[DEBUG] An error occurred: {e}")
+
+    finally:
+        # ブラウザを閉じる
+        print("[DEBUG] Closing browser...")
+        driver.quit()
+        print("[DEBUG] Browser closed.")
+
+if __name__ == "__main__":
+    print("[DEBUG] Script execution started.")
+    main()
+    print("[DEBUG] Script execution finished.")
