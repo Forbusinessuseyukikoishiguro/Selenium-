@@ -1,0 +1,63 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+import time
+
+def setup_driver():
+    """
+    WebDriverを初期化する関数。
+    ChromeDriverを自動インストールし、初期化されたWebDriverを返す。
+
+    Returns:
+        WebDriver: 初期化済みのWebDriverオブジェクト。
+    """
+    print("[DEBUG] Setting up WebDriver...")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    driver.maximize_window()
+    print("[DEBUG] WebDriver setup complete.")
+    return driver
+
+def main():
+    """
+    ローカルファイルを開き、hogehogeテキストを持つ要素をクリックするサンプルコード。
+    """
+    print("[DEBUG] Starting main function...")
+    driver = setup_driver()
+    
+    try:
+        # 1. ローカルHTMLファイルを開く
+        file_path = "file:///C:/Users/Ishiguro_Y/Desktop/python/hogehoge.html"
+        print(f"[DEBUG] Opening local file: {file_path}")
+        driver.get(file_path)
+
+        # 2. ページ読み込みを待機（10秒）
+        print("[DEBUG] Waiting for the page to load for 30 seconds...")
+        time.sleep(10)
+
+        # 3. hogehogeを持つ要素を検索してクリック
+        print("[DEBUG] Searching for element with text 'hogehoge'...")
+        hogehoge_element = driver.find_element(By.XPATH, "//*[text()='hogehoge']")
+        print("[DEBUG] Found element with text 'hogehoge'. Waiting 30 seconds before clicking...")
+        time.sleep(10)  # クリック前に10秒待機
+        print("[DEBUG] Clicking the element now...")
+        hogehoge_element.click()
+
+        print("[DEBUG] Element clicked successfully.")
+        
+    except Exception as e:
+        print(f"[DEBUG] An error occurred: {e}")
+
+    finally:
+        # ブラウザを閉じる
+        print("[DEBUG] Waiting 30 seconds before closing the browser...")
+        time.sleep(30)  # ブラウザを閉じる前に30秒待機
+        print("[DEBUG] Closing browser...")
+        driver.quit()
+        print("[DEBUG] Browser closed.")
+
+if __name__ == "__main__":
+    print("[DEBUG] Script execution started.")
+    main()
+    print("[DEBUG] Script execution finished.")
