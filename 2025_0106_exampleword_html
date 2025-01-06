@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リンク例</title>
+    <style>
+        .hogehoge-link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .hogehoge-link:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://example.com" class="hogehoge-link">hogehoge</a>
+    <br>
+    <a href="https://example.com" class="hogehoge-link">web請求書発行</a>
+    <br>
+    <a href="https://example.com" class="hogehoge-link">ウィンドウを閉じる</a>
+    <br>
+    <a href="https://example.com" class="hogehoge-link">ログアウト</a>
+</body>
+</html>
